@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import { ReactNode } from 'react';
 
 interface StatCardProps {
   title: string;
   value: string | number;
   subtitle?: string;
-  icon?: LucideIcon;
+  icon?: ReactNode;
   trend?: 'up' | 'down' | 'neutral';
   trendValue?: string;
   variant?: 'default' | 'primary' | 'gold';
@@ -15,7 +15,7 @@ export const StatCard = ({
   title,
   value,
   subtitle,
-  icon: Icon,
+  icon,
   trend,
   trendValue,
   variant = 'default',
@@ -54,14 +54,14 @@ export const StatCard = ({
             )}
           </div>
 
-          {Icon && (
+          {icon && (
             <div className={cn(
               "p-3 rounded-lg",
               variant === 'default' && "bg-primary/10 text-primary",
               variant === 'primary' && "bg-primary-foreground/20",
               variant === 'gold' && "bg-accent-foreground/20"
             )}>
-              <Icon className="w-6 h-6" />
+              {icon}
             </div>
           )}
         </div>
