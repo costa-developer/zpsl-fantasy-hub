@@ -58,27 +58,27 @@ export const Dashboard = () => {
                 <StatCard
                   title="Overall Rank"
                   value={userTeam.overallRank.toLocaleString()}
-                  icon={Trophy}
+                  icon={<Trophy className="w-5 h-5" />}
                   trend="up"
                   trendValue="1,234"
                 />
                 <StatCard
                   title="Total Points"
                   value={userTeam.totalPoints}
-                  icon={Star}
+                  icon={<Star className="w-5 h-5" />}
                   variant="primary"
                 />
                 <StatCard
                   title="GW Points"
                   value={userTeam.gameweekPoints}
-                  icon={Zap}
+                  icon={<Zap className="w-5 h-5" />}
                   variant="gold"
                 />
                 <StatCard
                   title="Transfers"
                   value={userTeam.freeTransfers}
                   subtitle="free available"
-                  icon={Users}
+                  icon={<Users className="w-5 h-5" />}
                 />
               </div>
 
