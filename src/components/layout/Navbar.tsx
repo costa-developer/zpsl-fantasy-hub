@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
 
 interface NavItem {
@@ -62,9 +63,10 @@ export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
         )}
 
         {/* Auth Buttons / User Menu */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           {isAuthenticated ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Link to="/profile">
                 <Button variant="ghost" size="icon">
                   <User className="w-5 h-5" />
