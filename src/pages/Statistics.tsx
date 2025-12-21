@@ -98,7 +98,7 @@ const Statistics = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar isAuthenticated={true} />
+      <Navbar />
       
       <main className="flex-1 container py-8">
         {/* Header */}

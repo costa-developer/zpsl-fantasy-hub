@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User, ArrowRightLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
   label: string;
@@ -14,17 +15,24 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/dashboard', icon: <Trophy className="w-4 h-4" /> },
   { label: 'Pick Team', href: '/pick-team', icon: <Users className="w-4 h-4" /> },
+  { label: 'Transfers', href: '/transfers', icon: <ArrowRightLeft className="w-4 h-4" /> },
   { label: 'Fixtures', href: '/fixtures', icon: <Calendar className="w-4 h-4" /> },
   { label: 'Statistics', href: '/statistics', icon: <BarChart3 className="w-4 h-4" /> },
 ];
 
-interface NavbarProps {
-  isAuthenticated?: boolean;
-}
-
-export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  
+  const isAuthenticated = !!user;
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+    navigate('/');
+  };
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
@@ -77,17 +85,17 @@ export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
                   <Settings className="w-5 h-5" />
                 </Button>
               </Link>
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="outline" size="sm" className="gap-2" onClick={handleSignOut}>
                 <LogOut className="w-4 h-4" />
                 Sign Out
               </Button>
             </div>
           ) : (
             <>
-              <Link to="/login">
+              <Link to="/auth">
                 <Button variant="ghost">Sign In</Button>
               </Link>
-              <Link to="/register">
+              <Link to="/auth">
                 <Button variant="gold">Get Started</Button>
               </Link>
             </>
@@ -95,14 +103,16 @@ export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
         </div>
 
         {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </Button>
+        <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -145,7 +155,7 @@ export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
                   Settings
                 </Link>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleSignOut}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-destructive hover:bg-destructive/10 w-full text-left"
                 >
                   <LogOut className="w-4 h-4" />
@@ -155,14 +165,14 @@ export const Navbar = ({ isAuthenticated = false }: NavbarProps) => {
             ) : (
               <>
                 <Link
-                  to="/login"
+                  to="/auth"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center py-3 rounded-lg font-medium text-foreground hover:bg-muted"
                 >
                   Sign In
                 </Link>
                 <Link
-                  to="/register"
+                  to="/auth"
                   onClick={() => setIsOpen(false)}
                 >
                   <Button variant="gold" className="w-full">Get Started</Button>

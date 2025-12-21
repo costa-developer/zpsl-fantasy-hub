@@ -26,7 +26,7 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-muted/30">
-      <Navbar isAuthenticated />
+      <Navbar />
       
       <main className="flex-1">
         {/* Header */}
