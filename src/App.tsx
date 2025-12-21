@@ -3,8 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PickTeam from "./pages/PickTeam";
@@ -21,27 +23,65 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/pick-team" element={<PickTeam />} />
-          <Route path="/transfers" element={<Transfers />} />
-          <Route path="/fixtures" element={<Fixtures />} />
-          <Route path="/leagues" element={<Leagues />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/rules" element={<Rules />} />
+            
+            {/* Protected Routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/pick-team" element={
+              <ProtectedRoute>
+                <PickTeam />
+              </ProtectedRoute>
+            } />
+            <Route path="/transfers" element={
+              <ProtectedRoute>
+                <Transfers />
+              </ProtectedRoute>
+            } />
+            <Route path="/fixtures" element={
+              <ProtectedRoute>
+                <Fixtures />
+              </ProtectedRoute>
+            } />
+            <Route path="/leagues" element={
+              <ProtectedRoute>
+                <Leagues />
+              </ProtectedRoute>
+            } />
+            <Route path="/statistics" element={
+              <ProtectedRoute>
+                <Statistics />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
