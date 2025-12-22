@@ -121,23 +121,23 @@ export const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
         <div className="w-full max-w-md">
-          <div className="bg-card rounded-2xl shadow-card border border-border p-8">
+          <div className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8">
             {/* Header */}
-            <div className="text-center mb-8">
-              <Link to="/" className="inline-flex items-center gap-2 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center shadow-lg">
-                  <span className="text-2xl font-heading font-black text-primary-foreground">Z</span>
+            <div className="text-center mb-6 sm:mb-8">
+              <Link to="/" className="inline-flex items-center gap-2 mb-4 sm:mb-6">
+                <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl bg-gradient-hero flex items-center justify-center shadow-lg">
+                  <span className="text-xl sm:text-2xl font-heading font-black text-white">Z</span>
                 </div>
               </Link>
-              <h1 className="font-heading font-bold text-2xl mb-2">
+              <h1 className="font-heading font-bold text-xl sm:text-2xl mb-2 text-foreground">
                 {isLogin ? 'Welcome Back' : 'Create Account'}
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 {isLogin ? 'Sign in to manage your fantasy team' : 'Join the ultimate fantasy football experience'}
               </p>
             </div>

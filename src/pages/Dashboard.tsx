@@ -25,21 +25,21 @@ export const Dashboard = () => {
     .slice(0, 3);
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <main className="flex-1">
         {/* Header */}
-        <section className="bg-gradient-hero text-primary-foreground py-8">
-          <div className="container">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <section className="bg-gradient-hero py-6 sm:py-8">
+          <div className="container px-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <p className="text-primary-foreground/60 text-sm mb-1">Welcome back</p>
-                <h1 className="font-heading font-bold text-2xl md:text-3xl">{userTeam.name}</h1>
+                <p className="text-white/60 text-xs sm:text-sm mb-1">Welcome back</p>
+                <h1 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl text-white">{userTeam.name}</h1>
               </div>
               <div className="flex gap-3">
                 <Link to="/pick-team">
-                  <Button variant="gold" size="lg">
+                  <Button variant="gold" size="default" className="text-sm sm:text-base">
                     Edit Team
                     <ArrowRight className="w-4 h-4" />
                   </Button>
@@ -49,45 +49,45 @@ export const Dashboard = () => {
           </div>
         </section>
 
-        <div className="container py-8">
-          <div className="grid lg:grid-cols-3 gap-8">
+        <div className="container px-4 py-6 sm:py-8">
+          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 space-y-6 sm:space-y-8">
               {/* Stats Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <StatCard
                   title="Overall Rank"
                   value={userTeam.overallRank.toLocaleString()}
-                  icon={<Trophy className="w-5 h-5" />}
+                  icon={<Trophy className="w-4 sm:w-5 h-4 sm:h-5" />}
                   trend="up"
                   trendValue="1,234"
                 />
                 <StatCard
                   title="Total Points"
                   value={userTeam.totalPoints}
-                  icon={<Star className="w-5 h-5" />}
+                  icon={<Star className="w-4 sm:w-5 h-4 sm:h-5" />}
                   variant="primary"
                 />
                 <StatCard
                   title="GW Points"
                   value={userTeam.gameweekPoints}
-                  icon={<Zap className="w-5 h-5" />}
+                  icon={<Zap className="w-4 sm:w-5 h-4 sm:h-5" />}
                   variant="gold"
                 />
                 <StatCard
                   title="Transfers"
                   value={userTeam.freeTransfers}
                   subtitle="free available"
-                  icon={<Users className="w-5 h-5" />}
+                  icon={<Users className="w-4 sm:w-5 h-4 sm:h-5" />}
                 />
               </div>
 
               {/* Pitch View */}
-              <div className="bg-card rounded-2xl border border-border shadow-card p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-heading font-bold text-xl">Your Squad</h2>
+              <div className="bg-card rounded-xl sm:rounded-2xl border border-border shadow-card p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="font-heading font-bold text-lg sm:text-xl text-foreground">Your Squad</h2>
                   <Link to="/pick-team">
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                       Manage Team
                     </Button>
                   </Link>
@@ -101,16 +101,16 @@ export const Dashboard = () => {
 
               {/* Upcoming Fixtures */}
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-heading font-bold text-xl">Upcoming Fixtures</h2>
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <h2 className="font-heading font-bold text-lg sm:text-xl text-foreground">Upcoming Fixtures</h2>
                   <Link to="/fixtures">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                       View All
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
                   {currentFixtures.slice(0, 4).map(fixture => (
                     <FixtureCard key={fixture.id} fixture={fixture} />
                   ))}
@@ -119,7 +119,7 @@ export const Dashboard = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Gameweek Countdown */}
               {currentGameweek && (
                 <GameweekCountdown
@@ -129,23 +129,23 @@ export const Dashboard = () => {
               )}
 
               {/* Quick Actions */}
-              <div className="bg-card rounded-2xl border border-border shadow-card p-6">
-                <h3 className="font-heading font-bold text-lg mb-4">Quick Actions</h3>
-                <div className="space-y-3">
+              <div className="bg-card rounded-xl sm:rounded-2xl border border-border shadow-card p-4 sm:p-6">
+                <h3 className="font-heading font-bold text-base sm:text-lg mb-3 sm:mb-4 text-foreground">Quick Actions</h3>
+                <div className="space-y-2 sm:space-y-3">
                   <Link to="/transfers" className="block">
-                    <Button variant="outline" className="w-full justify-start">
+                    <Button variant="outline" className="w-full justify-start text-sm">
                       <TrendingUp className="w-4 h-4 mr-2" />
                       Make Transfers
                     </Button>
                   </Link>
                   <Link to="/leagues" className="block">
-                    <Button variant="outline" className="w-full justify-start">
+                    <Button variant="outline" className="w-full justify-start text-sm">
                       <Trophy className="w-4 h-4 mr-2" />
                       Join League
                     </Button>
                   </Link>
                   <Link to="/fixtures" className="block">
-                    <Button variant="outline" className="w-full justify-start">
+                    <Button variant="outline" className="w-full justify-start text-sm">
                       <Calendar className="w-4 h-4 mr-2" />
                       View Fixtures
                     </Button>
@@ -154,17 +154,17 @@ export const Dashboard = () => {
               </div>
 
               {/* Top Form Players */}
-              <div className="bg-card rounded-2xl border border-border shadow-card p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-heading font-bold text-lg">Top Form</h3>
+              <div className="bg-card rounded-xl sm:rounded-2xl border border-border shadow-card p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <h3 className="font-heading font-bold text-base sm:text-lg text-foreground">Top Form</h3>
                   <Link to="/statistics">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
                       View All
                     </Button>
                   </Link>
                 </div>
-                <div className="space-y-3">
-                  {topPlayers.map((player, index) => (
+                <div className="space-y-2 sm:space-y-3">
+                  {topPlayers.map((player) => (
                     <PlayerCard 
                       key={player.id} 
                       player={player} 
@@ -176,12 +176,12 @@ export const Dashboard = () => {
               </div>
 
               {/* Budget Info */}
-              <div className="bg-gradient-gold rounded-2xl p-6 text-accent-foreground">
-                <h3 className="font-heading font-bold text-lg mb-2">Team Value</h3>
-                <p className="text-3xl font-heading font-black">
+              <div className="bg-gradient-gold rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                <h3 className="font-heading font-bold text-base sm:text-lg mb-2 text-foreground">Team Value</h3>
+                <p className="text-2xl sm:text-3xl font-heading font-black text-foreground">
                   £{(100 - userTeam.budget).toFixed(1)}m
                 </p>
-                <p className="text-sm opacity-80 mt-1">
+                <p className="text-xs sm:text-sm text-foreground/70 mt-1">
                   £{userTeam.budget.toFixed(1)}m in the bank
                 </p>
               </div>
