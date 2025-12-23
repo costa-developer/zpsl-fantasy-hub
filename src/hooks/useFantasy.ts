@@ -1,28 +1,16 @@
 import { useState, useCallback, useMemo } from 'react';
-import { 
-  players, 
-  teams, 
-  fixtures, 
-  gameweeks, 
-  userTeam as initialUserTeam,
-  Player,
-  UserTeam,
-  getPlayerById,
-  getTeamById,
-  getCurrentGameweek,
-  getFixturesByGameweek
-} from '@/data/mockData';
+import { useZPSLData, AppPlayer, AppTeam, AppFixture } from '@/hooks/useZPSLData';
+import { useAuth } from '@/contexts/AuthContext';
 
 const SQUAD_SIZE = 15;
-const STARTING_XI = 11;
 const BUDGET_LIMIT = 100;
 const MAX_PLAYERS_PER_TEAM = 3;
 
 interface SquadConstraints {
-  GK: { min: 2, max: 2 };
-  DEF: { min: 5, max: 5 };
-  MID: { min: 5, max: 5 };
-  FWD: { min: 3, max: 3 };
+  GK: { min: number; max: number };
+  DEF: { min: number; max: number };
+  MID: { min: number; max: number };
+  FWD: { min: number; max: number };
 }
 
 const SQUAD_CONSTRAINTS: SquadConstraints = {
@@ -32,14 +20,68 @@ const SQUAD_CONSTRAINTS: SquadConstraints = {
   FWD: { min: 3, max: 3 },
 };
 
+export interface UserTeam {
+  id: string;
+  name: string;
+  players: string[];
+  captainId: string;
+  viceCaptainId: string;
+  budget: number;
+  totalPoints: number;
+  gameweekPoints: number;
+  overallRank: number;
+  transfers: number;
+  freeTransfers: number;
+}
+
+export interface Gameweek {
+  id: number;
+  name: string;
+  deadline: string;
+  isCurrent: boolean;
+  isNext: boolean;
+  finished: boolean;
+}
+
+// Generate gameweeks
+const generateGameweeks = (): Gameweek[] => {
+  const now = new Date();
+  const currentGW = 18;
+  
+  return [
+    { id: currentGW - 1, name: `Gameweek ${currentGW - 1}`, deadline: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString(), isCurrent: false, isNext: false, finished: true },
+    { id: currentGW, name: `Gameweek ${currentGW}`, deadline: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString(), isCurrent: true, isNext: false, finished: false },
+    { id: currentGW + 1, name: `Gameweek ${currentGW + 1}`, deadline: new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000).toISOString(), isCurrent: false, isNext: true, finished: false },
+  ];
+};
+
 export const useFantasy = () => {
-  const [userTeam, setUserTeam] = useState<UserTeam>(initialUserTeam);
+  const { user } = useAuth();
+  const { teams, players, fixtures, isLoading: dataLoading, getTeamById, getPlayerById } = useZPSLData();
+  
+  const [userTeam, setUserTeam] = useState<UserTeam>({
+    id: 'user-1',
+    name: 'Zimbabwe Warriors XI',
+    players: [],
+    captainId: '',
+    viceCaptainId: '',
+    budget: 100,
+    totalPoints: 0,
+    gameweekPoints: 0,
+    overallRank: 0,
+    transfers: 0,
+    freeTransfers: 2,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const gameweeks = useMemo(() => generateGameweeks(), []);
+
   const selectedPlayers = useMemo(() => {
-    return userTeam.players.map(id => getPlayerById(id)).filter(Boolean) as Player[];
-  }, [userTeam.players]);
+    return userTeam.players
+      .map(id => getPlayerById(id))
+      .filter(Boolean) as AppPlayer[];
+  }, [userTeam.players, getPlayerById]);
 
   const remainingBudget = useMemo(() => {
     const spent = selectedPlayers.reduce((sum, p) => sum + p.price, 0);
@@ -60,29 +102,25 @@ export const useFantasy = () => {
     }, {} as Record<string, number>);
   }, [selectedPlayers]);
 
-  const canAddPlayer = useCallback((player: Player): { allowed: boolean; reason?: string } => {
-    // Check if already selected
+  const canAddPlayer = useCallback((player: AppPlayer): { allowed: boolean; reason?: string } => {
     if (userTeam.players.includes(player.id)) {
       return { allowed: false, reason: 'Player already in squad' };
     }
 
-    // Check squad size
     if (userTeam.players.length >= SQUAD_SIZE) {
       return { allowed: false, reason: 'Squad is full' };
     }
 
-    // Check budget
     if (player.price > remainingBudget) {
       return { allowed: false, reason: 'Insufficient budget' };
     }
 
-    // Check position limit
     const currentPositionCount = positionCounts[player.position] || 0;
-    if (currentPositionCount >= SQUAD_CONSTRAINTS[player.position].max) {
+    const constraint = SQUAD_CONSTRAINTS[player.position as keyof SquadConstraints];
+    if (constraint && currentPositionCount >= constraint.max) {
       return { allowed: false, reason: `Maximum ${player.position} players reached` };
     }
 
-    // Check team limit
     const currentTeamCount = teamCounts[player.teamId] || 0;
     if (currentTeamCount >= MAX_PLAYERS_PER_TEAM) {
       return { allowed: false, reason: 'Maximum 3 players from same team' };
@@ -106,7 +144,7 @@ export const useFantasy = () => {
       players: [...prev.players, playerId],
     }));
     setError(null);
-  }, [canAddPlayer]);
+  }, [canAddPlayer, getPlayerById]);
 
   const removePlayer = useCallback((playerId: string) => {
     setUserTeam(prev => ({
@@ -137,8 +175,10 @@ export const useFantasy = () => {
     }));
   }, [userTeam.players]);
 
-  const currentGameweek = getCurrentGameweek();
-  const currentFixtures = currentGameweek ? getFixturesByGameweek(currentGameweek.id) : [];
+  const currentGameweek = gameweeks.find(g => g.isCurrent);
+  const currentFixtures = currentGameweek 
+    ? fixtures.filter(f => f.gameweek === currentGameweek.id)
+    : fixtures.slice(0, 6);
 
   return {
     // Data
@@ -164,7 +204,7 @@ export const useFantasy = () => {
     canAddPlayer,
     
     // State
-    isLoading,
+    isLoading: isLoading || dataLoading,
     error,
     setError,
     
