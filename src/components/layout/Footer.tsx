@@ -9,12 +9,10 @@ export const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-hero flex items-center justify-center">
-                <span className="text-xl font-heading font-black text-white">Z</span>
+              <div className="w-10 h-10 rounded-md bg-primary flex items-center justify-center">
+                <span className="text-xl font-heading font-black text-primary-foreground">Z</span>
               </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-bold text-foreground">ZPSL Fantasy</span>
-              </div>
+              <span className="font-heading font-bold text-foreground">ZPSL Fantasy</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               The official fantasy football game for the Zimbabwe Premier Soccer League.
