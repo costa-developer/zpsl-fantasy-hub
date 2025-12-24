@@ -38,14 +38,12 @@ export const Navbar = () => {
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-14 sm:h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="relative w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-gradient-hero flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-            <span className="text-lg sm:text-xl font-heading font-black text-white">Z</span>
-            <div className="absolute -top-1 -right-1 w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-gold animate-pulse" />
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-md bg-primary flex items-center justify-center">
+            <span className="text-lg sm:text-xl font-heading font-black text-primary-foreground">Z</span>
           </div>
           <div className="flex flex-col">
-            <span className="font-heading font-bold text-foreground leading-tight text-sm sm:text-base">ZPSL</span>
-            <span className="text-[9px] sm:text-[10px] text-muted-foreground leading-tight">Fantasy</span>
+            <span className="font-heading font-bold text-foreground leading-tight text-sm sm:text-base">ZPSL Fantasy</span>
           </div>
         </Link>
 

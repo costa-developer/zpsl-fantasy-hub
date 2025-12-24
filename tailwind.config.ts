@@ -57,9 +57,8 @@ export default {
           dark: "hsl(var(--gold-dark))",
         },
         pitch: {
-          DEFAULT: "hsl(var(--pitch-green))",
-          light: "hsl(var(--pitch-green-light))",
-          dark: "hsl(var(--pitch-green-dark))",
+          DEFAULT: "hsl(var(--pitch))",
+          light: "hsl(var(--pitch-light))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -80,13 +79,6 @@ export default {
       boxShadow: {
         card: "var(--shadow-card)",
         "card-hover": "var(--shadow-card-hover)",
-        gold: "var(--shadow-gold)",
-      },
-      backgroundImage: {
-        "gradient-hero": "var(--gradient-hero)",
-        "gradient-gold": "var(--gradient-gold)",
-        "gradient-card": "var(--gradient-card)",
-        "gradient-dark": "var(--gradient-dark)",
       },
       keyframes: {
         "accordion-down": {

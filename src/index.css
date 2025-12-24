@@ -6,105 +6,99 @@
 
 @layer base {
   :root {
-    /* Zimbabwe PSL Colors */
+    /* Clean Zimbabwe Colors - FPL Style */
     --background: 0 0% 100%;
-    --foreground: 150 20% 10%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 150 20% 10%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 150 20% 10%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Deep Forest Green - Primary */
-    --primary: 145 63% 32%;
-    --primary-foreground: 45 100% 96%;
+    /* Primary Green - Zimbabwe Flag */
+    --primary: 150 100% 25%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Gold Accent */
-    --accent: 45 93% 47%;
-    --accent-foreground: 150 20% 10%;
+    /* Gold/Yellow Accent - Zimbabwe Flag */
+    --accent: 48 100% 50%;
+    --accent-foreground: 0 0% 10%;
 
-    /* Secondary - Light green tint */
-    --secondary: 145 30% 95%;
-    --secondary-foreground: 145 63% 25%;
+    /* Secondary */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 145 15% 93%;
-    --muted-foreground: 145 10% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 145 20% 88%;
-    --input: 145 20% 88%;
-    --ring: 145 63% 32%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 150 100% 25%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Custom tokens */
-    --gold: 45 93% 47%;
-    --gold-light: 45 93% 60%;
-    --gold-dark: 45 93% 38%;
+    --gold: 48 100% 50%;
+    --gold-light: 48 100% 60%;
+    --gold-dark: 45 100% 40%;
     
-    --pitch-green: 145 63% 32%;
-    --pitch-green-light: 145 50% 45%;
-    --pitch-green-dark: 145 70% 20%;
+    --zim-green: 150 100% 25%;
+    --zim-green-light: 150 80% 35%;
+    --zim-green-dark: 150 100% 18%;
     
     --success: 145 60% 40%;
-    --warning: 45 93% 47%;
+    --warning: 48 100% 50%;
     --info: 210 100% 50%;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(145 63% 25%) 0%, hsl(145 70% 18%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(45 93% 47%) 0%, hsl(40 90% 40%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(145 15% 98%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(150 20% 10%) 0%, hsl(150 25% 5%) 100%);
+    /* Pitch colors */
+    --pitch: 140 50% 35%;
+    --pitch-light: 140 45% 42%;
 
-    /* Shadows */
-    --shadow-card: 0 4px 20px -4px hsla(145, 30%, 20%, 0.12);
-    --shadow-card-hover: 0 12px 32px -8px hsla(145, 30%, 20%, 0.2);
-    --shadow-gold: 0 4px 20px -4px hsla(45, 93%, 47%, 0.4);
+    /* Shadows - subtle */
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 
-    --sidebar-background: 150 20% 8%;
-    --sidebar-foreground: 45 100% 96%;
-    --sidebar-primary: 45 93% 47%;
-    --sidebar-primary-foreground: 150 20% 10%;
-    --sidebar-accent: 145 63% 32%;
-    --sidebar-accent-foreground: 45 100% 96%;
-    --sidebar-border: 150 15% 18%;
-    --sidebar-ring: 45 93% 47%;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 48 100% 50%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 150 100% 25%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 48 100% 50%;
   }
 
   .dark {
-    --background: 150 20% 6%;
-    --foreground: 45 100% 96%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 150 18% 10%;
-    --card-foreground: 45 100% 96%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 150 18% 10%;
-    --popover-foreground: 45 100% 96%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 45 93% 47%;
-    --primary-foreground: 150 20% 10%;
+    --primary: 48 100% 50%;
+    --primary-foreground: 0 0% 10%;
 
-    --accent: 145 63% 40%;
-    --accent-foreground: 45 100% 96%;
+    --accent: 150 100% 35%;
+    --accent-foreground: 0 0% 98%;
 
-    --secondary: 150 15% 15%;
-    --secondary-foreground: 45 100% 96%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 150 15% 18%;
-    --muted-foreground: 145 10% 60%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 60%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 15% 20%;
-    --input: 150 15% 20%;
-    --ring: 45 93% 47%;
-
-    --gradient-hero: linear-gradient(135deg, hsl(150 20% 8%) 0%, hsl(150 25% 4%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(150 18% 12%) 0%, hsl(150 20% 8%) 100%);
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 48 100% 50%;
   }
 }
 
@@ -124,77 +118,51 @@
 
 @layer components {
   .text-gradient-gold {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%);
+    @apply text-accent;
   }
 
-  .bg-hero-pattern {
-    background-image: 
-      radial-gradient(circle at 20% 50%, hsla(145, 63%, 32%, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsla(45, 93%, 47%, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 40% 80%, hsla(145, 63%, 32%, 0.06) 0%, transparent 40%);
+  .bg-gradient-hero {
+    background-color: hsl(var(--primary));
+  }
+
+  .bg-gradient-gold {
+    background-color: hsl(var(--accent));
   }
 
   .card-hover {
-    @apply transition-all duration-300 ease-out;
+    @apply transition-all duration-200 ease-out;
   }
 
   .card-hover:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-card-hover);
   }
 
-  .pitch-lines {
-    background-image: 
-      linear-gradient(90deg, hsla(145, 50%, 45%, 0.1) 1px, transparent 1px),
-      linear-gradient(hsla(145, 50%, 45%, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
   }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse-gold {
-    animation: pulse-gold 2s ease-in-out infinite;
-  }
-
   .animate-slide-up {
-    animation: slide-up 0.5s ease-out forwards;
+    animation: slide-up 0.4s ease-out forwards;
   }
 
   .animate-fade-in {
-    animation: fade-in 0.4s ease-out forwards;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.3s ease-out forwards;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes pulse-gold {
-    0%, 100% { box-shadow: 0 0 0 0 hsla(45, 93%, 47%, 0.4); }
-    50% { box-shadow: 0 0 20px 10px hsla(45, 93%, 47%, 0); }
+    animation: fade-in 0.3s ease-out forwards;
   }
 
   @keyframes slide-up {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
-  }
-
-  @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
   }
 }

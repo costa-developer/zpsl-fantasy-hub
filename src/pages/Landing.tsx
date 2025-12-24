@@ -2,181 +2,164 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { Trophy, Users, Calendar, TrendingUp, Star, Zap, Shield, Target } from 'lucide-react';
+import { Trophy, Users, Calendar, TrendingUp, ChevronRight } from 'lucide-react';
 
 const features = [
   {
     icon: Users,
-    title: 'Build Your Dream Team',
-    description: 'Select 15 players from ZPSL clubs within your £100m budget. Make tactical decisions to maximize points.',
+    title: 'Build Your Squad',
+    description: 'Pick 15 players from ZPSL clubs within your $100m budget.',
   },
   {
     icon: Trophy,
-    title: 'Compete & Win',
-    description: 'Join leagues, compete with friends, and climb the overall rankings to become the ultimate fantasy manager.',
+    title: 'Create & Join Leagues',
+    description: 'Compete with friends and climb the overall rankings.',
   },
   {
     icon: TrendingUp,
-    title: 'Live Points Tracking',
-    description: 'Watch your points update in real-time as matches unfold. Track every goal, assist, and clean sheet.',
+    title: 'Track Live Points',
+    description: 'Watch your points update as matches unfold.',
   },
   {
     icon: Calendar,
     title: 'Weekly Transfers',
-    description: 'Analyze form, fixtures, and stats. Make strategic transfers each gameweek to stay ahead.',
+    description: 'Make strategic transfers each gameweek.',
   },
-];
-
-const stats = [
-  { value: '12', label: 'ZPSL Teams' },
-  { value: '250+', label: 'Players' },
-  { value: '34', label: 'Gameweeks' },
-  { value: '50K+', label: 'Managers' },
 ];
 
 export const Landing = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-hero">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 pitch-lines opacity-5" />
-          <div className="absolute inset-0 bg-hero-pattern" />
-          
-          <div className="container relative z-10 py-16 px-4 sm:py-20 md:py-32">
-            <div className="max-w-3xl mx-auto text-center">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-gold/20 text-gold mb-4 sm:mb-6 animate-fade-in">
-                <Star className="w-4 h-4" />
-                <span className="text-xs sm:text-sm font-semibold">Season 2024/25 Now Live</span>
-              </div>
+        {/* Hero Section - Clean, solid green like FPL */}
+        <section className="bg-primary">
+          <div className="container py-12 md:py-20 px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                {/* Left: Text Content */}
+                <div className="text-center md:text-left">
+                  <h1 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl leading-tight text-white mb-4">
+                    ZPSL Fantasy
+                    <span className="block text-accent">Football</span>
+                  </h1>
 
-              {/* Headline */}
-              <h1 className="font-heading font-black text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight mb-4 sm:mb-6 animate-slide-up text-white">
-                Zimbabwe Premier League
-                <span className="block text-gradient-gold mt-1 sm:mt-2">Fantasy Football</span>
-              </h1>
+                  <p className="text-white/90 text-base md:text-lg mb-6 max-w-md">
+                    Build your dream team from Zimbabwe Premier Soccer League players. 
+                    Compete with fans across the nation.
+                  </p>
 
-              <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 max-w-2xl mx-auto animate-slide-up px-2" style={{ animationDelay: '0.1s' }}>
-                Build your ultimate ZPSL dream team. Pick from Dynamos, Highlanders, CAPS United and more. 
-                Compete with thousands of fans across Zimbabwe.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-slide-up px-4 sm:px-0" style={{ animationDelay: '0.2s' }}>
-                <Link to="/auth" className="w-full sm:w-auto">
-                  <Button variant="gold" size="lg" className="w-full sm:w-auto text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-10">
-                    Start Playing Free
-                    <Zap className="w-5 h-5" />
-                  </Button>
-                </Link>
-                <Link to="/rules" className="w-full sm:w-auto">
-                  <Button variant="heroOutline" size="lg" className="w-full sm:w-auto text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-10">
-                    How to Play
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            {/* Stats Bar */}
-            <div className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto animate-fade-in px-2" style={{ animationDelay: '0.3s' }}>
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center p-3 sm:p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
-                  <p className="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-gold">{stat.value}</p>
-                  <p className="text-xs sm:text-sm text-white/70 mt-1">{stat.label}</p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                    <Link to="/auth">
+                      <Button 
+                        size="lg" 
+                        className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90 font-bold"
+                      >
+                        Play Now - It's Free
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              ))}
+
+                {/* Right: Stats */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                    <p className="font-heading font-black text-3xl md:text-4xl text-accent">16</p>
+                    <p className="text-white/80 text-sm">Teams</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                    <p className="font-heading font-black text-3xl md:text-4xl text-accent">76+</p>
+                    <p className="text-white/80 text-sm">Players</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                    <p className="font-heading font-black text-3xl md:text-4xl text-accent">34</p>
+                    <p className="text-white/80 text-sm">Gameweeks</p>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                    <p className="font-heading font-black text-3xl md:text-4xl text-accent">$100m</p>
+                    <p className="text-white/80 text-sm">Budget</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Bottom Wave */}
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
         </section>
 
-        {/* Features Section */}
-        <section className="py-12 sm:py-20 md:py-28 bg-background">
+        {/* Features Section - Simple white background */}
+        <section className="py-12 md:py-16 bg-background">
           <div className="container px-4">
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-              <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4 text-foreground">
-                Everything You Need to
-                <span className="text-primary"> Dominate</span>
-              </h2>
-              <p className="text-muted-foreground text-base sm:text-lg px-2">
-                Get the complete fantasy football experience with powerful tools and real-time updates.
-              </p>
-            </div>
+            <h2 className="font-heading font-bold text-2xl md:text-3xl text-center mb-8 text-foreground">
+              How It Works
+            </h2>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
               {features.map((feature, index) => (
                 <div
                   key={feature.title}
-                  className="group p-5 sm:p-6 rounded-2xl bg-card border border-border shadow-card card-hover"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="p-5 rounded-lg border border-border bg-card text-center"
                 >
-                  <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <feature.icon className="w-5 sm:w-6 h-5 sm:h-6 text-primary group-hover:text-primary-foreground" />
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <feature.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="font-heading font-bold text-base sm:text-lg mb-2 text-foreground">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <h3 className="font-heading font-bold text-base mb-2 text-foreground">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {feature.description}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="py-12 sm:py-20 md:py-28 bg-muted/50">
+        {/* Steps Section */}
+        <section className="py-12 md:py-16 bg-muted">
           <div className="container px-4">
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
-              <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4 text-foreground">
-                How It Works
+            <div className="max-w-3xl mx-auto">
+              <h2 className="font-heading font-bold text-2xl md:text-3xl text-center mb-8 text-foreground">
+                Get Started in 3 Steps
               </h2>
-              <p className="text-muted-foreground text-base sm:text-lg">
-                Get started in minutes and join the fantasy football action.
-              </p>
-            </div>
 
-            <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
-              {[
-                { step: '01', title: 'Create Your Team', desc: 'Pick 15 players within your £100m budget. Choose wisely!' },
-                { step: '02', title: 'Set Your Captain', desc: 'Your captain earns double points. Pick your best player!' },
-                { step: '03', title: 'Watch Points Roll In', desc: 'Earn points for goals, assists, clean sheets, and more.' },
-              ].map((item, index) => (
-                <div key={item.step} className="relative text-center">
-                  <div className="inline-flex items-center justify-center w-14 sm:w-16 h-14 sm:h-16 rounded-full bg-gradient-gold text-foreground font-heading font-black text-lg sm:text-xl mb-3 sm:mb-4 shadow-gold">
-                    {item.step}
+              <div className="space-y-4">
+                {[
+                  { step: '1', title: 'Sign Up Free', desc: 'Create your account in seconds' },
+                  { step: '2', title: 'Pick Your Squad', desc: 'Choose 15 players within your $100m budget' },
+                  { step: '3', title: 'Compete', desc: 'Join leagues and climb the rankings' },
+                ].map((item) => (
+                  <div key={item.step} className="flex items-center gap-4 bg-card p-4 rounded-lg border border-border">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground font-heading font-bold flex items-center justify-center flex-shrink-0">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-foreground">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </div>
                   </div>
-                  <h3 className="font-heading font-bold text-base sm:text-lg mb-2 text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground px-2">{item.desc}</p>
-                  
-                  {index < 2 && (
-                    <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-border" />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-12 sm:py-20 md:py-28 bg-gradient-hero relative overflow-hidden">
-          <div className="absolute inset-0 pitch-lines opacity-5" />
-          
-          <div className="container relative z-10 text-center px-4">
-            <h2 className="font-heading font-black text-2xl sm:text-3xl md:text-5xl mb-4 sm:mb-6 text-white">
-              Ready to Become a
-              <span className="text-gold"> Champion?</span>
+        {/* CTA Section - Clean green */}
+        <section className="py-12 md:py-16 bg-primary">
+          <div className="container px-4 text-center">
+            <h2 className="font-heading font-bold text-2xl md:text-3xl text-white mb-4">
+              Ready to Start?
             </h2>
-            <p className="text-base sm:text-lg text-white/80 mb-6 sm:mb-8 max-w-xl mx-auto px-2">
-              Join thousands of fantasy managers competing in the Zimbabwe Premier Soccer League.
+            <p className="text-white/80 mb-6 max-w-md mx-auto">
+              Join the ZPSL Fantasy community today.
             </p>
             <Link to="/auth">
-              <Button variant="gold" size="lg" className="text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-10">
+              <Button 
+                size="lg" 
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold"
+              >
                 Create Free Account
-                <Trophy className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>
