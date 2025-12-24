@@ -1,22 +1,23 @@
-import { Player, getTeamById } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 import { User } from 'lucide-react';
+import { useZPSLData, AppPlayer } from '@/hooks/useZPSLData';
 
 interface PitchViewProps {
-  players: Player[];
+  players: AppPlayer[];
   captainId?: string;
   viceCaptainId?: string;
-  onPlayerClick?: (player: Player) => void;
+  onPlayerClick?: (player: AppPlayer) => void;
 }
 
 interface PitchPlayerProps {
-  player: Player;
+  player: AppPlayer;
   isCaptain?: boolean;
   isViceCaptain?: boolean;
   onClick?: () => void;
 }
 
 const PitchPlayer = ({ player, isCaptain, isViceCaptain, onClick }: PitchPlayerProps) => {
+  const { getTeamById } = useZPSLData();
   const team = getTeamById(player.teamId);
 
   return (
@@ -69,7 +70,7 @@ export const PitchView = ({ players, captainId, viceCaptainId, onPlayerClick }: 
   const midfielders = players.filter(p => p.position === 'MID').slice(0, 4);
   const forwards = players.filter(p => p.position === 'FWD').slice(0, 2);
 
-  const renderRow = (rowPlayers: Player[], className?: string) => (
+  const renderRow = (rowPlayers: AppPlayer[], className?: string) => (
     <div className={cn("flex justify-center gap-2 md:gap-4", className)}>
       {rowPlayers.map(player => (
         <PitchPlayer

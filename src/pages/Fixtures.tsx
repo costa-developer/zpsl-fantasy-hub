@@ -5,15 +5,16 @@ import { FixtureCard } from '@/components/fantasy/FixtureCard';
 import { GameweekCountdown } from '@/components/fantasy/GameweekCountdown';
 import { Button } from '@/components/ui/button';
 import { useFantasy } from '@/hooks/useFantasy';
-import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export const Fixtures = () => {
-  const { fixtures, gameweeks, currentGameweek } = useFantasy();
+  const { fixtures, gameweeks, currentGameweek, isLoading } = useFantasy();
   const [selectedGameweek, setSelectedGameweek] = useState(currentGameweek?.id || 18);
 
   const gameweekFixtures = fixtures.filter(f => f.gameweek === selectedGameweek);
   const selectedGW = gameweeks.find(g => g.id === selectedGameweek);
+  const finishedFixtures = fixtures.filter(f => f.finished);
 
   const handlePrevGameweek = () => {
     const currentIndex = gameweeks.findIndex(g => g.id === selectedGameweek);
@@ -29,10 +30,24 @@ export const Fixtures = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-muted/30">
+        <Navbar />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
+            <p className="mt-2 text-muted-foreground">Loading fixtures...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-muted/30">
       <Navbar />
-      
       <main className="flex-1">
         {/* Header */}
         <section className="bg-gradient-hero text-primary-foreground py-8">
@@ -142,12 +157,15 @@ export const Fixtures = () => {
               <div className="bg-card rounded-xl border border-border shadow-card p-6">
                 <h3 className="font-heading font-bold text-lg mb-4">Recent Results</h3>
                 <div className="space-y-4">
-                  {fixtures
-                    .filter(f => f.finished)
-                    .slice(0, 4)
-                    .map(fixture => (
-                      <FixtureCard key={fixture.id} fixture={fixture} />
-                    ))}
+                  {finishedFixtures.length > 0 ? (
+                    finishedFixtures
+                      .slice(0, 4)
+                      .map(fixture => (
+                        <FixtureCard key={fixture.id} fixture={fixture} />
+                      ))
+                  ) : (
+                    <p className="text-muted-foreground text-sm">No results yet</p>
+                  )}
                 </div>
               </div>
             </div>
