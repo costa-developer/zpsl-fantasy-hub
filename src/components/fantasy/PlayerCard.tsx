@@ -1,12 +1,12 @@
-import { Player, getTeamById } from '@/data/mockData';
 import { cn } from '@/lib/utils';
-import { User, Star, TrendingUp, Clock } from 'lucide-react';
+import { User, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useZPSLData, AppPlayer } from '@/hooks/useZPSLData';
 
 interface PlayerCardProps {
-  player: Player;
-  onSelect?: (player: Player) => void;
-  onRemove?: (player: Player) => void;
+  player: AppPlayer;
+  onSelect?: (player: AppPlayer) => void;
+  onRemove?: (player: AppPlayer) => void;
   isCaptain?: boolean;
   isViceCaptain?: boolean;
   isSelected?: boolean;
@@ -31,6 +31,7 @@ export const PlayerCard = ({
   showActions = true,
   compact = false,
 }: PlayerCardProps) => {
+  const { getTeamById } = useZPSLData();
   const team = getTeamById(player.teamId);
 
   if (compact) {

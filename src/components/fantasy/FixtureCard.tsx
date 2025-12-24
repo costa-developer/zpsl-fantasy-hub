@@ -1,12 +1,13 @@
-import { Fixture, getTeamById } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import { useZPSLData, AppFixture } from '@/hooks/useZPSLData';
 
 interface FixtureCardProps {
-  fixture: Fixture;
+  fixture: AppFixture;
 }
 
 export const FixtureCard = ({ fixture }: FixtureCardProps) => {
+  const { getTeamById } = useZPSLData();
   const homeTeam = getTeamById(fixture.homeTeamId);
   const awayTeam = getTeamById(fixture.awayTeamId);
   const kickoffDate = new Date(fixture.kickoffTime);

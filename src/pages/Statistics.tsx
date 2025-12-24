@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { BarChart3, Search, TrendingUp, Target, Shield, Zap, Filter } from 'lucide-react';
+import { BarChart3, Search, TrendingUp, Target, Shield, Zap, Loader2 } from 'lucide-react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -8,12 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { players, teams, getTeamById } from '@/data/mockData';
+import { useZPSLData, AppPlayer } from '@/hooks/useZPSLData';
 import { cn } from '@/lib/utils';
 
 type SortKey = 'totalPoints' | 'goalsScored' | 'assists' | 'cleanSheets' | 'form' | 'price' | 'selected';
 
 const Statistics = () => {
+  const { players, teams, getTeamById, isLoading } = useZPSLData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPosition, setSelectedPosition] = useState<string>('ALL');
   const [selectedTeam, setSelectedTeam] = useState<string>('ALL');
@@ -25,13 +26,17 @@ const Statistics = () => {
   const sortedPlayers = useMemo(() => {
     return players
       .filter(player => {
-        const matchesSearch = player.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                             player.lastName.toLowerCase().includes(searchQuery.toLowerCase());
+        const fullName = `${player.firstName} ${player.lastName}`.toLowerCase();
+        const matchesSearch = fullName.includes(searchQuery.toLowerCase());
         const matchesPosition = selectedPosition === 'ALL' || player.position === selectedPosition;
         const matchesTeam = selectedTeam === 'ALL' || player.teamId === selectedTeam;
         return matchesSearch && matchesPosition && matchesTeam;
       })
-      .sort((a, b) => b[sortBy] - a[sortBy]);
+      .sort((a, b) => {
+        const aVal = sortBy === 'goalsScored' ? a.goalsScored : sortBy === 'selected' ? a.selected : a[sortBy];
+        const bVal = sortBy === 'goalsScored' ? b.goalsScored : sortBy === 'selected' ? b.selected : b[sortBy];
+        return bVal - aVal;
+      });
   }, [players, searchQuery, selectedPosition, selectedTeam, sortBy]);
 
   const topScorers = useMemo(() => 
@@ -58,8 +63,8 @@ const Statistics = () => {
   const StatLeaderCard = ({ title, icon, data, statKey, statLabel }: {
     title: string;
     icon: React.ReactNode;
-    data: typeof players;
-    statKey: keyof typeof players[0];
+    data: AppPlayer[];
+    statKey: keyof AppPlayer;
     statLabel: string;
   }) => (
     <Card>
@@ -95,6 +100,21 @@ const Statistics = () => {
       </CardContent>
     </Card>
   );
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Navbar />
+        <main className="flex-1 container py-8 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
+            <p className="mt-2 text-muted-foreground">Loading player statistics...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
