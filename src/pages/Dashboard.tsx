@@ -5,8 +5,10 @@ import { GameweekCountdown } from '@/components/fantasy/GameweekCountdown';
 import { PitchView } from '@/components/fantasy/PitchView';
 import { FixtureCard } from '@/components/fantasy/FixtureCard';
 import { PlayerCard } from '@/components/fantasy/PlayerCard';
+import { StandingsTable } from '@/components/fantasy/StandingsTable';
 import { Button } from '@/components/ui/button';
 import { useFantasy } from '@/hooks/useFantasy';
+import { useZPSLData } from '@/hooks/useZPSLData';
 import { Link } from 'react-router-dom';
 import { Trophy, TrendingUp, Users, ArrowRight, Calendar, Star, Zap } from 'lucide-react';
 
@@ -15,14 +17,25 @@ export const Dashboard = () => {
     userTeam, 
     selectedPlayers, 
     currentGameweek, 
-    currentFixtures,
-    players,
   } = useFantasy();
 
-  // Get top performers
+  const { players, fixtures, isLoading } = useZPSLData();
+
+  // Get top performers from real data
   const topPlayers = [...players]
     .sort((a, b) => b.form - a.form)
     .slice(0, 3);
+
+  // Get upcoming fixtures (not finished)
+  const upcomingFixtures = fixtures
+    .filter(f => !f.finished)
+    .slice(0, 4);
+
+  // Get recent results
+  const recentResults = fixtures
+    .filter(f => f.finished)
+    .slice(-4)
+    .reverse();
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -82,6 +95,9 @@ export const Dashboard = () => {
                 />
               </div>
 
+              {/* League Standings */}
+              <StandingsTable />
+
               {/* Pitch View */}
               <div className="bg-card rounded-xl sm:rounded-2xl border border-border shadow-card p-4 sm:p-6">
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
@@ -99,23 +115,45 @@ export const Dashboard = () => {
                 />
               </div>
 
+              {/* Recent Results */}
+              {recentResults.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <h2 className="font-heading font-bold text-lg sm:text-xl text-foreground">Recent Results</h2>
+                    <Link to="/fixtures">
+                      <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
+                        View All
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                    {recentResults.map(fixture => (
+                      <FixtureCard key={fixture.id} fixture={fixture} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Upcoming Fixtures */}
-              <div>
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <h2 className="font-heading font-bold text-lg sm:text-xl text-foreground">Upcoming Fixtures</h2>
-                  <Link to="/fixtures">
-                    <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
-                      View All
-                      <ArrowRight className="w-4 h-4" />
-                    </Button>
-                  </Link>
+              {upcomingFixtures.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <h2 className="font-heading font-bold text-lg sm:text-xl text-foreground">Upcoming Fixtures</h2>
+                    <Link to="/fixtures">
+                      <Button variant="ghost" size="sm" className="text-xs sm:text-sm">
+                        View All
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                    {upcomingFixtures.map(fixture => (
+                      <FixtureCard key={fixture.id} fixture={fixture} />
+                    ))}
+                  </div>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                  {currentFixtures.slice(0, 4).map(fixture => (
-                    <FixtureCard key={fixture.id} fixture={fixture} />
-                  ))}
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -163,16 +201,24 @@ export const Dashboard = () => {
                     </Button>
                   </Link>
                 </div>
-                <div className="space-y-2 sm:space-y-3">
-                  {topPlayers.map((player) => (
-                    <PlayerCard 
-                      key={player.id} 
-                      player={player} 
-                      compact 
-                      showActions={false}
-                    />
-                  ))}
-                </div>
+                {isLoading ? (
+                  <div className="space-y-2">
+                    {[...Array(3)].map((_, i) => (
+                      <div key={i} className="h-16 bg-muted rounded animate-pulse"></div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-2 sm:space-y-3">
+                    {topPlayers.map((player) => (
+                      <PlayerCard 
+                        key={player.id} 
+                        player={player} 
+                        compact 
+                        showActions={false}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Budget Info */}
