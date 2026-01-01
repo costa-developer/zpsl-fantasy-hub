@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { BarChart3, Search, TrendingUp, Target, Shield, Zap, Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -78,23 +79,25 @@ const Statistics = () => {
         {data.map((player, index) => {
           const team = getTeamById(player.teamId);
           return (
-            <div key={player.id} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className={cn(
-                  "w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold",
-                  index === 0 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
-                )}>
-                  {index + 1}
-                </span>
-                <span className="text-sm">{team?.badge}</span>
-                <span className="text-sm font-medium text-foreground">
-                  {player.firstName.charAt(0)}. {player.lastName}
-                </span>
+            <Link key={player.id} to={`/player/${player.id}`} className="block">
+              <div className="flex items-center justify-between hover:bg-muted/50 rounded-lg p-1 -mx-1 transition-colors">
+                <div className="flex items-center gap-2">
+                  <span className={cn(
+                    "w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold",
+                    index === 0 ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+                  )}>
+                    {index + 1}
+                  </span>
+                  <span className="text-sm">{team?.badge}</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {player.firstName.charAt(0)}. {player.lastName}
+                  </span>
+                </div>
+                <Badge variant={index === 0 ? "default" : "outline"}>
+                  {player[statKey]} {statLabel}
+                </Badge>
               </div>
-              <Badge variant={index === 0 ? "default" : "outline"}>
-                {player[statKey]} {statLabel}
-              </Badge>
-            </div>
+            </Link>
           );
         })}
       </CardContent>
@@ -257,20 +260,20 @@ const Statistics = () => {
                           <tr
                             key={player.id}
                             className={cn(
-                              "border-b border-border/50 transition-colors hover:bg-muted/50",
+                              "border-b border-border/50 transition-colors hover:bg-muted/50 cursor-pointer",
                               index % 2 === 0 && "bg-muted/20"
                             )}
                           >
                             <td className="py-3 px-4">
-                              <div className="flex items-center gap-3">
+                              <Link to={`/player/${player.id}`} className="flex items-center gap-3">
                                 <span className="text-lg">{team?.badge}</span>
                                 <div>
-                                  <p className="font-medium text-foreground">
+                                  <p className="font-medium text-foreground hover:text-primary transition-colors">
                                     {player.firstName} {player.lastName}
                                   </p>
                                   <p className="text-xs text-muted-foreground">{team?.shortName}</p>
                                 </div>
-                              </div>
+                              </Link>
                             </td>
                             <td className="py-3 px-2 text-center">
                               <Badge variant="outline" className="text-xs">

@@ -15,6 +15,7 @@ import Rules from "./pages/Rules";
 import Transfers from "./pages/Transfers";
 import Leagues from "./pages/Leagues";
 import Statistics from "./pages/Statistics";
+import PlayerProfile from "./pages/PlayerProfile";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
@@ -64,6 +65,11 @@ const App = () => (
             <Route path="/statistics" element={
               <ProtectedRoute>
                 <Statistics />
+              </ProtectedRoute>
+            } />
+            <Route path="/player/:id" element={
+              <ProtectedRoute>
+                <PlayerProfile />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={

@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils';
 import { User, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useZPSLData, AppPlayer } from '@/hooks/useZPSLData';
+import { Link } from 'react-router-dom';
 
 interface PlayerCardProps {
   player: AppPlayer;
@@ -36,44 +37,45 @@ export const PlayerCard = ({
 
   if (compact) {
     return (
-      <div
-        className={cn(
-          "relative flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer",
-          isSelected
-            ? "bg-primary/10 border-primary"
-            : "bg-card border-border hover:border-primary/50 hover:shadow-card"
-        )}
-        onClick={() => onSelect?.(player)}
-      >
-        {/* Position Badge */}
-        <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs", positionColors[player.position])}>
-          {player.position}
-        </div>
-
-        {/* Player Info */}
-        <div className="flex-1 min-w-0">
-          <p className="font-semibold text-sm truncate">
-            {player.firstName.charAt(0)}. {player.lastName}
-          </p>
-          <p className="text-xs text-muted-foreground">{team?.shortName}</p>
-        </div>
-
-        {/* Stats */}
-        <div className="text-right">
-          <p className="font-bold text-sm">{player.totalPoints} pts</p>
-          <p className="text-xs text-muted-foreground">£{player.price}m</p>
-        </div>
-
-        {/* Captain Badge */}
-        {(isCaptain || isViceCaptain) && (
-          <div className={cn(
-            "absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold",
-            isCaptain ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
-          )}>
-            {isCaptain ? 'C' : 'V'}
+      <Link to={`/player/${player.id}`}>
+        <div
+          className={cn(
+            "relative flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer",
+            isSelected
+              ? "bg-primary/10 border-primary"
+              : "bg-card border-border hover:border-primary/50 hover:shadow-card"
+          )}
+        >
+          {/* Position Badge */}
+          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xs", positionColors[player.position])}>
+            {player.position}
           </div>
-        )}
-      </div>
+
+          {/* Player Info */}
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-sm truncate">
+              {player.firstName.charAt(0)}. {player.lastName}
+            </p>
+            <p className="text-xs text-muted-foreground">{team?.shortName}</p>
+          </div>
+
+          {/* Stats */}
+          <div className="text-right">
+            <p className="font-bold text-sm">{player.totalPoints} pts</p>
+            <p className="text-xs text-muted-foreground">£{player.price}m</p>
+          </div>
+
+          {/* Captain Badge */}
+          {(isCaptain || isViceCaptain) && (
+            <div className={cn(
+              "absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold",
+              isCaptain ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
+            )}>
+              {isCaptain ? 'C' : 'V'}
+            </div>
+          )}
+        </div>
+      </Link>
     );
   }
 
