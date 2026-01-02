@@ -1,6 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useZPSLData, AppTeam, AppFixture } from '@/hooks/useZPSLData';
 import { useMemo } from 'react';
+import { Trophy } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface TeamStanding {
   team: AppTeam;
@@ -112,22 +114,27 @@ export const StandingsTable = () => {
 
   return (
     <div className="bg-card rounded-xl border border-border shadow-card overflow-hidden">
-      <div className="p-4 border-b border-border">
-        <h3 className="font-heading font-bold text-base sm:text-lg text-foreground">ZPSL Standings</h3>
+      <div className="p-4 sm:p-5 border-b border-border bg-muted/30">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Trophy className="w-4 h-4 text-primary" />
+          </div>
+          <h3 className="font-heading font-bold text-base sm:text-lg text-foreground">ZPSL Standings</h3>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-muted/50">
-              <TableHead className="w-8 text-center">#</TableHead>
-              <TableHead>Team</TableHead>
-              <TableHead className="text-center w-10">P</TableHead>
-              <TableHead className="text-center w-10">W</TableHead>
-              <TableHead className="text-center w-10">D</TableHead>
-              <TableHead className="text-center w-10">L</TableHead>
-              <TableHead className="text-center w-10 hidden sm:table-cell">GF</TableHead>
-              <TableHead className="text-center w-10 hidden sm:table-cell">GA</TableHead>
-              <TableHead className="text-center w-10">GD</TableHead>
+            <TableRow className="bg-muted/30 hover:bg-muted/30">
+              <TableHead className="w-10 text-center font-semibold">#</TableHead>
+              <TableHead className="font-semibold">Team</TableHead>
+              <TableHead className="text-center w-10 font-semibold">P</TableHead>
+              <TableHead className="text-center w-10 font-semibold">W</TableHead>
+              <TableHead className="text-center w-10 font-semibold">D</TableHead>
+              <TableHead className="text-center w-10 font-semibold">L</TableHead>
+              <TableHead className="text-center w-10 hidden sm:table-cell font-semibold">GF</TableHead>
+              <TableHead className="text-center w-10 hidden sm:table-cell font-semibold">GA</TableHead>
+              <TableHead className="text-center w-10 font-semibold">GD</TableHead>
               <TableHead className="text-center w-12 font-bold">Pts</TableHead>
             </TableRow>
           </TableHeader>
@@ -135,33 +142,47 @@ export const StandingsTable = () => {
             {standings.map((standing, index) => (
               <TableRow 
                 key={standing.team.id}
-                className={index < 3 ? 'bg-primary/5' : ''}
+                className={cn(
+                  "transition-colors",
+                  index < 3 && "bg-primary/5 hover:bg-primary/10"
+                )}
               >
                 <TableCell className="text-center font-medium">
-                  <span className={index < 3 ? 'text-primary font-bold' : 'text-muted-foreground'}>
+                  <span className={cn(
+                    "inline-flex items-center justify-center w-6 h-6 rounded-full text-xs",
+                    index === 0 && "bg-accent text-accent-foreground font-bold",
+                    index === 1 && "bg-muted-foreground/20 text-foreground font-semibold",
+                    index === 2 && "bg-amber-700/20 text-amber-700 font-semibold",
+                    index > 2 && "text-muted-foreground"
+                  )}>
                     {index + 1}
                   </span>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <span className="text-lg">{standing.team.badge}</span>
-                    <span className="font-medium text-sm truncate max-w-[120px] sm:max-w-none">
+                    <span className="font-medium text-sm truncate max-w-[100px] sm:max-w-none">
                       {standing.team.name}
                     </span>
                   </div>
                 </TableCell>
-                <TableCell className="text-center text-sm">{standing.played}</TableCell>
-                <TableCell className="text-center text-sm">{standing.won}</TableCell>
-                <TableCell className="text-center text-sm">{standing.drawn}</TableCell>
-                <TableCell className="text-center text-sm">{standing.lost}</TableCell>
-                <TableCell className="text-center text-sm hidden sm:table-cell">{standing.goalsFor}</TableCell>
-                <TableCell className="text-center text-sm hidden sm:table-cell">{standing.goalsAgainst}</TableCell>
-                <TableCell className="text-center text-sm">
-                  <span className={standing.goalDifference > 0 ? 'text-green-600' : standing.goalDifference < 0 ? 'text-red-600' : ''}>
+                <TableCell className="text-center text-sm text-muted-foreground">{standing.played}</TableCell>
+                <TableCell className="text-center text-sm font-medium text-green-600">{standing.won}</TableCell>
+                <TableCell className="text-center text-sm text-muted-foreground">{standing.drawn}</TableCell>
+                <TableCell className="text-center text-sm text-red-500">{standing.lost}</TableCell>
+                <TableCell className="text-center text-sm hidden sm:table-cell text-muted-foreground">{standing.goalsFor}</TableCell>
+                <TableCell className="text-center text-sm hidden sm:table-cell text-muted-foreground">{standing.goalsAgainst}</TableCell>
+                <TableCell className="text-center text-sm font-medium">
+                  <span className={cn(
+                    standing.goalDifference > 0 && "text-green-600",
+                    standing.goalDifference < 0 && "text-red-500"
+                  )}>
                     {standing.goalDifference > 0 ? '+' : ''}{standing.goalDifference}
                   </span>
                 </TableCell>
-                <TableCell className="text-center font-bold text-primary">{standing.points}</TableCell>
+                <TableCell className="text-center">
+                  <span className="font-bold text-primary text-base">{standing.points}</span>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
