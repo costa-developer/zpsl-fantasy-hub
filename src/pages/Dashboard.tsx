@@ -6,6 +6,7 @@ import { PitchView } from '@/components/fantasy/PitchView';
 import { FixtureCard } from '@/components/fantasy/FixtureCard';
 import { PlayerCard } from '@/components/fantasy/PlayerCard';
 import { StandingsTable } from '@/components/fantasy/StandingsTable';
+import { SocialShare } from '@/components/fantasy/SocialShare';
 import { Button } from '@/components/ui/button';
 import { useFantasy } from '@/hooks/useFantasy';
 import { useZPSLData } from '@/hooks/useZPSLData';
@@ -220,6 +221,14 @@ export const Dashboard = () => {
                   </div>
                 )}
               </div>
+
+              {/* Social Share */}
+              <SocialShare 
+                teamName={userTeam.name}
+                rank={userTeam.overallRank}
+                points={userTeam.totalPoints}
+                gameweekPoints={userTeam.gameweekPoints}
+              />
 
               {/* Budget Info */}
               <div className="bg-gradient-gold rounded-xl sm:rounded-2xl p-4 sm:p-6">
