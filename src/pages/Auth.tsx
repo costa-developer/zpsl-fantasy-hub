@@ -125,19 +125,19 @@ export const Auth = () => {
       <Navbar />
       
       <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
-        <div className="w-full max-w-md">
-          <div className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8">
+        <div className="w-full max-w-md animate-fade-in">
+          <div className="bg-card rounded-2xl shadow-lg border border-border p-6 sm:p-8">
             {/* Header */}
             <div className="text-center mb-6 sm:mb-8">
               <Link to="/" className="inline-flex items-center gap-2 mb-4 sm:mb-6">
-                <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl bg-gradient-hero flex items-center justify-center shadow-lg">
-                  <span className="text-xl sm:text-2xl font-heading font-black text-white">Z</span>
+                <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-xl bg-primary flex items-center justify-center shadow-lg">
+                  <span className="text-2xl sm:text-3xl font-heading font-black text-primary-foreground">Z</span>
                 </div>
               </Link>
-              <h1 className="font-heading font-bold text-xl sm:text-2xl mb-2 text-foreground">
+              <h1 className="font-heading font-bold text-2xl sm:text-3xl mb-2 text-foreground">
                 {isLogin ? 'Welcome Back' : 'Create Account'}
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground">
+              <p className="text-muted-foreground">
                 {isLogin ? 'Sign in to manage your fantasy team' : 'Join the ultimate fantasy football experience'}
               </p>
             </div>
@@ -156,7 +156,7 @@ export const Auth = () => {
                         placeholder="Choose a username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 h-12"
                       />
                     </div>
                   </div>
@@ -171,7 +171,7 @@ export const Auth = () => {
                         placeholder="My Fantasy Team"
                         value={teamName}
                         onChange={(e) => setTeamName(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 h-12"
                       />
                     </div>
                   </div>
@@ -191,7 +191,7 @@ export const Auth = () => {
                       setEmail(e.target.value);
                       setErrors({ ...errors, email: undefined });
                     }}
-                    className={`pl-10 ${errors.email ? 'border-destructive' : ''}`}
+                    className={`pl-10 h-12 ${errors.email ? 'border-destructive' : ''}`}
                     required
                   />
                 </div>
@@ -218,13 +218,13 @@ export const Auth = () => {
                       setPassword(e.target.value);
                       setErrors({ ...errors, password: undefined });
                     }}
-                    className={`pl-10 pr-10 ${errors.password ? 'border-destructive' : ''}`}
+                    className={`pl-10 pr-10 h-12 ${errors.password ? 'border-destructive' : ''}`}
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -232,14 +232,28 @@ export const Auth = () => {
                 {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
               </div>
 
-              <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
-                {isLoading ? (isLogin ? 'Signing in...' : 'Creating account...') : (isLogin ? 'Sign In' : 'Create Account')}
-                {!isLoading && <ArrowRight className="w-4 h-4" />}
+              <Button 
+                type="submit" 
+                className="w-full h-12 text-base font-bold" 
+                size="lg" 
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                    {isLogin ? 'Signing in...' : 'Creating account...'}
+                  </span>
+                ) : (
+                  <>
+                    {isLogin ? 'Sign In' : 'Create Account'}
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
               </Button>
             </form>
 
             {/* Toggle */}
-            <p className="text-center text-sm text-muted-foreground mt-6">
+            <p className="text-center text-muted-foreground mt-6">
               {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
               <button
                 type="button"
@@ -253,6 +267,14 @@ export const Auth = () => {
               </button>
             </p>
           </div>
+
+          {/* Footer note */}
+          <p className="text-center text-xs text-muted-foreground mt-6">
+            By continuing, you agree to our{' '}
+            <Link to="/terms" className="underline hover:text-foreground">Terms of Service</Link>
+            {' '}and{' '}
+            <Link to="/privacy" className="underline hover:text-foreground">Privacy Policy</Link>
+          </p>
         </div>
       </main>
     </div>
