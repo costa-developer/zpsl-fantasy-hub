@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Twitter, Facebook, Share2, Check, Copy } from 'lucide-react';
+import { Twitter, Facebook, Share2, Check, Copy, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 
@@ -20,6 +20,8 @@ export const SocialShare = ({ teamName, rank, points, gameweekPoints }: SocialSh
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
   
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+  
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
 
   const handleCopyLink = async () => {
     try {
@@ -39,9 +41,9 @@ export const SocialShare = ({ teamName, rank, points, gameweekPoints }: SocialSh
     }
   };
 
-  const handleShare = (platform: 'twitter' | 'facebook') => {
-    const url = platform === 'twitter' ? twitterUrl : facebookUrl;
-    window.open(url, '_blank', 'width=600,height=400,noopener,noreferrer');
+  const handleShare = (platform: 'twitter' | 'facebook' | 'whatsapp') => {
+    const urls = { twitter: twitterUrl, facebook: facebookUrl, whatsapp: whatsappUrl };
+    window.open(urls[platform], '_blank', 'width=600,height=400,noopener,noreferrer');
   };
 
   return (
@@ -74,6 +76,16 @@ export const SocialShare = ({ teamName, rank, points, gameweekPoints }: SocialSh
         >
           <Facebook className="w-4 h-4" />
           <span className="hidden sm:inline">Facebook</span>
+        </Button>
+        
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleShare('whatsapp')}
+          className="flex-1 min-w-[100px] gap-2 hover:bg-[#25D366]/10 hover:text-[#25D366] hover:border-[#25D366]/50 transition-colors"
+        >
+          <MessageCircle className="w-4 h-4" />
+          <span className="hidden sm:inline">WhatsApp</span>
         </Button>
         
         <Button
