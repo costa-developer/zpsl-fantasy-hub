@@ -124,71 +124,71 @@ export const Auth = () => {
     <div className="min-h-screen flex flex-col bg-gradient-subtle">
       <Navbar />
       
-      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
-        {/* Decorative background elements */}
+      <main className="flex-1 flex items-center justify-center p-3 sm:p-4 md:p-6 relative overflow-hidden">
+        {/* Decorative background elements - reduced on mobile */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial opacity-50" />
+          <div className="absolute -top-20 sm:-top-40 -right-20 sm:-right-40 w-48 sm:w-80 h-48 sm:h-80 bg-primary/5 rounded-full blur-2xl sm:blur-3xl" />
+          <div className="absolute -bottom-20 sm:-bottom-40 -left-20 sm:-left-40 w-56 sm:w-96 h-56 sm:h-96 bg-accent/5 rounded-full blur-2xl sm:blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-radial opacity-50" />
         </div>
 
         <div className="w-full max-w-md animate-fade-in relative z-10">
-          <div className="bg-card/80 backdrop-blur-xl rounded-3xl shadow-xl border border-border/50 p-6 sm:p-8">
+          <div className="bg-card/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl border border-border/50 p-5 sm:p-6 md:p-8">
             {/* Header */}
-            <div className="text-center mb-6 sm:mb-8">
-              <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
-                  <span className="text-3xl font-heading font-black text-primary-foreground">Z</span>
+            <div className="text-center mb-5 sm:mb-6 md:mb-8">
+              <Link to="/" className="inline-flex items-center gap-3 mb-4 sm:mb-5 group">
+                <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
+                  <span className="text-2xl sm:text-3xl font-heading font-black text-primary-foreground">Z</span>
                 </div>
               </Link>
-              <h1 className="font-heading font-bold text-2xl sm:text-3xl mb-2 text-foreground">
+              <h1 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl mb-1.5 sm:mb-2 text-foreground">
                 {isLogin ? 'Welcome Back' : 'Join the Game'}
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-sm sm:text-base">
                 {isLogin ? 'Sign in to manage your fantasy team' : 'Create your account and start competing'}
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               {!isLogin && (
                 <>
-                  <div className="space-y-2">
-                    <Label htmlFor="username" className="text-sm font-medium">Username (optional)</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="username" className="text-xs sm:text-sm font-medium">Username (optional)</Label>
                     <div className="relative group">
-                      <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <User className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                       <Input
                         id="username"
                         type="text"
                         placeholder="Choose a username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="pl-11 h-12 rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors"
+                        className="pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="teamName" className="text-sm font-medium">Team Name</Label>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="teamName" className="text-xs sm:text-sm font-medium">Team Name</Label>
                     <div className="relative group">
-                      <Trophy className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <Trophy className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                       <Input
                         id="teamName"
                         type="text"
                         placeholder="My Fantasy Team"
                         value={teamName}
                         onChange={(e) => setTeamName(e.target.value)}
-                        className="pl-11 h-12 rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors"
+                        className="pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base"
                       />
                     </div>
                   </div>
                 </>
               )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="email" className="text-xs sm:text-sm font-medium">Email</Label>
                 <div className="relative group">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Mail className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
                     id="email"
                     type="email"
@@ -198,69 +198,69 @@ export const Auth = () => {
                       setEmail(e.target.value);
                       setErrors({ ...errors, email: undefined });
                     }}
-                    className={`pl-11 h-12 rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors ${errors.email ? 'border-destructive focus:border-destructive' : ''}`}
+                    className={`pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base ${errors.email ? 'border-destructive focus:border-destructive' : ''}`}
                     required
                   />
                 </div>
-                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                {errors.email && <p className="text-xs sm:text-sm text-destructive">{errors.email}</p>}
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                  <Label htmlFor="password" className="text-xs sm:text-sm font-medium">Password</Label>
                   {isLogin && (
-                    <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-                      Forgot password?
+                    <Link to="/forgot-password" className="text-xs sm:text-sm text-primary hover:text-primary/80 font-medium transition-colors">
+                      Forgot?
                     </Link>
                   )}
                 </div>
                 <div className="relative group">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Lock className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder={isLogin ? 'Enter your password' : 'Create a password (min 6 chars)'}
+                    placeholder={isLogin ? 'Enter your password' : 'Create a password'}
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
                       setErrors({ ...errors, password: undefined });
                     }}
-                    className={`pl-11 pr-11 h-12 rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors ${errors.password ? 'border-destructive focus:border-destructive' : ''}`}
+                    className={`pl-9 sm:pl-11 pr-10 sm:pr-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base ${errors.password ? 'border-destructive focus:border-destructive' : ''}`}
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-3 sm:right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
                   </button>
                 </div>
-                {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
+                {errors.password && <p className="text-xs sm:text-sm text-destructive">{errors.password}</p>}
               </div>
 
               <Button 
                 type="submit" 
-                className="w-full h-12 text-base font-bold rounded-xl mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5" 
+                className="w-full h-11 sm:h-12 text-sm sm:text-base font-bold rounded-lg sm:rounded-xl mt-4 sm:mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0" 
                 size="lg" 
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                    {isLogin ? 'Signing in...' : 'Creating account...'}
+                    <span className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                    <span className="text-sm sm:text-base">{isLogin ? 'Signing in...' : 'Creating...'}</span>
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
                     {isLogin ? 'Sign In' : 'Create Account'}
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </span>
                 )}
               </Button>
             </form>
 
             {/* Divider */}
-            <div className="relative my-6">
+            <div className="relative my-4 sm:my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-border/50" />
               </div>
@@ -270,7 +270,7 @@ export const Auth = () => {
             </div>
 
             {/* Toggle */}
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground text-sm sm:text-base">
               {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
               <button
                 type="button"
@@ -286,21 +286,21 @@ export const Auth = () => {
           </div>
 
           {/* Feature badges */}
-          <div className="flex flex-wrap justify-center gap-3 mt-6">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 sm:mt-6 px-2">
             {['Free to play', 'Real ZPSL data', 'Win prizes'].map((feature) => (
-              <div key={feature} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/60 backdrop-blur border border-border/30 text-xs font-medium text-muted-foreground">
-                <Sparkles className="w-3 h-3 text-accent" />
+              <div key={feature} className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-card/60 backdrop-blur border border-border/30 text-[10px] sm:text-xs font-medium text-muted-foreground">
+                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-accent" />
                 {feature}
               </div>
             ))}
           </div>
 
           {/* Footer note */}
-          <p className="text-center text-xs text-muted-foreground mt-6">
+          <p className="text-center text-[10px] sm:text-xs text-muted-foreground mt-4 sm:mt-6 px-4">
             By continuing, you agree to our{' '}
-            <Link to="/terms" className="underline hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link to="/terms" className="underline hover:text-foreground transition-colors">Terms</Link>
             {' '}and{' '}
-            <Link to="/privacy" className="underline hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/privacy" className="underline hover:text-foreground transition-colors">Privacy</Link>
           </p>
         </div>
       </main>
