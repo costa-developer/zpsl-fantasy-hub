@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { StatCard } from '@/components/fantasy/StatCard';
@@ -7,11 +8,15 @@ import { FixtureCard } from '@/components/fantasy/FixtureCard';
 import { PlayerCard } from '@/components/fantasy/PlayerCard';
 import { StandingsTable } from '@/components/fantasy/StandingsTable';
 import { SocialShare } from '@/components/fantasy/SocialShare';
+import { PullToRefreshIndicator } from '@/components/ui/PullToRefresh';
 import { Button } from '@/components/ui/button';
 import { useFantasy } from '@/hooks/useFantasy';
 import { useZPSLData } from '@/hooks/useZPSLData';
+import { usePullToRefresh } from '@/hooks/usePullToRefresh';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import { Trophy, TrendingUp, Users, ArrowRight, Calendar, Star, Zap } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export const Dashboard = () => {
   const { 
@@ -20,7 +25,31 @@ export const Dashboard = () => {
     currentGameweek, 
   } = useFantasy();
 
-  const { players, fixtures, isLoading } = useZPSLData();
+  const { players, fixtures, isLoading, refetch } = useZPSLData();
+  const isMobile = useIsMobile();
+  const { toast } = useToast();
+
+  // Pull to refresh handler
+  const handleRefresh = useCallback(async () => {
+    try {
+      await refetch();
+      toast({
+        title: 'Refreshed',
+        description: 'Dashboard data updated successfully.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Refresh failed',
+        description: 'Could not update data. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  }, [refetch, toast]);
+
+  const { pullDistance, isRefreshing, progress } = usePullToRefresh({
+    onRefresh: handleRefresh,
+    disabled: !isMobile,
+  });
 
   // Get top performers from real data
   const topPlayers = [...players]
@@ -40,6 +69,15 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      {/* Pull to refresh indicator - mobile only */}
+      {isMobile && (
+        <PullToRefreshIndicator 
+          pullDistance={pullDistance}
+          isRefreshing={isRefreshing}
+          progress={progress}
+        />
+      )}
+      
       <Navbar />
       
       <main className="flex-1">

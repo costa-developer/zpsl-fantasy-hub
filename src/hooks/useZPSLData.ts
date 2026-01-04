@@ -161,7 +161,7 @@ function transformMatch(match: Match): AppFixture {
 
 export function useZPSLData() {
   // Fetch teams
-  const { data: teamsData, isLoading: teamsLoading } = useQuery({
+  const { data: teamsData, isLoading: teamsLoading, refetch: refetchTeams } = useQuery({
     queryKey: ['zpsl-teams'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -175,7 +175,7 @@ export function useZPSLData() {
   });
 
   // Fetch players
-  const { data: playersData, isLoading: playersLoading } = useQuery({
+  const { data: playersData, isLoading: playersLoading, refetch: refetchPlayers } = useQuery({
     queryKey: ['zpsl-players'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -189,7 +189,7 @@ export function useZPSLData() {
   });
 
   // Fetch matches
-  const { data: matchesData, isLoading: matchesLoading } = useQuery({
+  const { data: matchesData, isLoading: matchesLoading, refetch: refetchMatches } = useQuery({
     queryKey: ['zpsl-matches'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -201,6 +201,11 @@ export function useZPSLData() {
       return data as Match[];
     },
   });
+
+  // Combined refetch function
+  const refetch = async () => {
+    await Promise.all([refetchTeams(), refetchPlayers(), refetchMatches()]);
+  };
 
   // Transform data
   const teams: AppTeam[] = (teamsData || []).map(transformTeam);
@@ -219,6 +224,7 @@ export function useZPSLData() {
     players,
     fixtures,
     isLoading: teamsLoading || playersLoading || matchesLoading,
+    refetch,
     getTeamById,
     getPlayerById,
     getPlayersByTeam,
