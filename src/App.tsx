@@ -18,6 +18,7 @@ import Statistics from "./pages/Statistics";
 import PlayerProfile from "./pages/PlayerProfile";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Compare from "./pages/Compare";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -80,6 +81,11 @@ const App = () => (
             <Route path="/settings" element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            } />
+            <Route path="/compare" element={
+              <ProtectedRoute>
+                <Compare />
               </ProtectedRoute>
             } />
             
