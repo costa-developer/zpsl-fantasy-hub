@@ -139,8 +139,8 @@ export const Landing = () => {
                       key={stat.label}
                       className="group relative bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 text-center border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all duration-300 active:scale-[0.98] lg:hover:-translate-y-2 overflow-hidden"
                     >
-                      {/* Shine effect */}
-                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent hidden sm:block" />
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block" />
                       
                       <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-accent/80 mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform" />
                       <p className="font-heading font-black text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-accent mb-0.5 sm:mb-1">{stat.value}</p>
@@ -186,7 +186,7 @@ export const Landing = () => {
                   className="group relative p-4 sm:p-5 lg:p-6 xl:p-7 rounded-xl sm:rounded-2xl lg:rounded-3xl border border-border bg-card hover:shadow-xl transition-all duration-300 active:scale-[0.98] lg:hover:-translate-y-2 overflow-hidden card-shine"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center mb-3 sm:mb-4 lg:mb-5 group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 lg:mb-5 group-hover:scale-110 transition-transform">
                     <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary" />
                   </div>
                   <h3 className="font-heading font-bold text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 text-foreground">
@@ -228,7 +228,7 @@ export const Landing = () => {
                     key={item.step} 
                     className="group flex items-center gap-3 sm:gap-4 lg:gap-5 bg-card p-4 sm:p-5 lg:p-6 rounded-xl sm:rounded-2xl border border-border shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-300 active:scale-[0.99]"
                   >
-                    <div className="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-heading font-bold text-base sm:text-lg lg:text-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-primary text-primary-foreground font-heading font-bold text-base sm:text-lg lg:text-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
                       {item.step}
                     </div>
                     <div className="flex-1 min-w-0">

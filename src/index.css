@@ -128,30 +128,30 @@
 }
 
 @layer components {
-  /* Text gradients */
+  /* Text colors - solid alternatives to gradients */
   .text-gradient-gold {
-    @apply bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent;
+    @apply text-gold font-bold;
   }
 
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent;
+    @apply text-primary font-bold;
   }
 
-  /* Background gradients */
+  /* Background colors - solid alternatives to gradients */
   .bg-gradient-hero {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--zim-green-dark)) 100%);
+    @apply bg-primary;
   }
 
   .bg-gradient-gold {
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-dark)) 100%);
+    @apply bg-gold;
   }
 
   .bg-gradient-subtle {
-    background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    @apply bg-background;
   }
 
   .bg-gradient-radial {
-    background: radial-gradient(ellipse at center, hsl(var(--accent) / 0.15) 0%, transparent 70%);
+    @apply bg-transparent;
   }
 
   /* Card effects */
