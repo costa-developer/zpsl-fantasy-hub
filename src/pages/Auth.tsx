@@ -137,7 +137,7 @@ export const Auth = () => {
             {/* Header */}
             <div className="text-center mb-5 sm:mb-6 md:mb-8">
               <Link to="/" className="inline-flex items-center gap-3 mb-4 sm:mb-5 group">
-                <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
+                <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
                   <span className="text-2xl sm:text-3xl font-heading font-black text-primary-foreground">Z</span>
                 </div>
               </Link>
@@ -241,7 +241,7 @@ export const Auth = () => {
 
               <Button 
                 type="submit" 
-                className="w-full h-11 sm:h-12 text-sm sm:text-base font-bold rounded-lg sm:rounded-xl mt-4 sm:mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0" 
+                className="w-full h-11 sm:h-12 text-sm sm:text-base font-bold rounded-lg sm:rounded-xl mt-4 sm:mt-6 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0" 
                 size="lg" 
                 disabled={isLoading}
               >
