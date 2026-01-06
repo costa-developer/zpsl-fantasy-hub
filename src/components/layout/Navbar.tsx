@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User, ArrowRightLeft } from 'lucide-react';
+import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User, ArrowRightLeft, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,7 @@ const navItems: NavItem[] = [
   { label: 'Pick Team', href: '/pick-team', icon: <Users className="w-4 h-4" /> },
   { label: 'Transfers', href: '/transfers', icon: <ArrowRightLeft className="w-4 h-4" /> },
   { label: 'Fixtures', href: '/fixtures', icon: <Calendar className="w-4 h-4" /> },
+  { label: 'Compare', href: '/compare', icon: <Scale className="w-4 h-4" /> },
   { label: 'Statistics', href: '/statistics', icon: <BarChart3 className="w-4 h-4" /> },
 ];
 
