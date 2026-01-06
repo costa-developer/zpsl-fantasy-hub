@@ -167,21 +167,21 @@ export const StandingsTable = () => {
                   </div>
                 </TableCell>
                 <TableCell className="text-center text-sm text-muted-foreground">{standing.played}</TableCell>
-                <TableCell className="text-center text-sm font-medium text-green-600">{standing.won}</TableCell>
+                <TableCell className="text-center text-sm font-medium text-primary">{standing.won}</TableCell>
                 <TableCell className="text-center text-sm text-muted-foreground">{standing.drawn}</TableCell>
-                <TableCell className="text-center text-sm text-red-500">{standing.lost}</TableCell>
+                <TableCell className="text-center text-sm text-destructive">{standing.lost}</TableCell>
                 <TableCell className="text-center text-sm hidden sm:table-cell text-muted-foreground">{standing.goalsFor}</TableCell>
                 <TableCell className="text-center text-sm hidden sm:table-cell text-muted-foreground">{standing.goalsAgainst}</TableCell>
                 <TableCell className="text-center text-sm font-medium">
                   <span className={cn(
-                    standing.goalDifference > 0 && "text-green-600",
-                    standing.goalDifference < 0 && "text-red-500"
+                    standing.goalDifference > 0 && "text-primary",
+                    standing.goalDifference < 0 && "text-destructive"
                   )}>
                     {standing.goalDifference > 0 ? '+' : ''}{standing.goalDifference}
                   </span>
                 </TableCell>
                 <TableCell className="text-center">
-                  <span className="font-bold text-primary text-base">{standing.points}</span>
+                  <span className="font-bold text-accent text-base">{standing.points}</span>
                 </TableCell>
               </TableRow>
             ))}

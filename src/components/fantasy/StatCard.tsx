@@ -27,9 +27,9 @@ export const StatCard = ({
       variant === 'primary' && "bg-primary text-primary-foreground",
       variant === 'gold' && "bg-accent text-accent-foreground"
     )}>
-      {/* Shine effect on hover */}
+      {/* Hover overlay */}
       {variant !== 'default' && (
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%]" style={{ transition: 'transform 0.7s, opacity 0.3s' }} />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/10" />
       )}
 
       <div className="relative z-10">
@@ -70,8 +70,8 @@ export const StatCard = ({
           <div className="mt-3 sm:mt-4 flex items-center gap-1.5">
             <span className={cn(
               "text-xs font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-0.5",
-              trend === 'up' && "bg-green-500/20 text-green-600",
-              trend === 'down' && "bg-red-500/20 text-red-600",
+              trend === 'up' && "bg-primary/20 text-primary",
+              trend === 'down' && "bg-destructive/20 text-destructive",
               trend === 'neutral' && "bg-muted text-muted-foreground"
             )}>
               {trend === 'up' && '↑'}
