@@ -38,8 +38,8 @@ A fantasy football platform for the Zimbabwe Premier Soccer League (ZPSL). Build
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/zpsl-fantasy.git
-   cd zpsl-fantasy
+   git clone https://github.com/costa-developer/zpsl-fantasy-hub.git
+   cd zpsl-fantasy-hub
    ```
 
 2. Install dependencies:
@@ -111,11 +111,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
-
-- Built with [Lovable](https://lovable.dev)
 - UI components from [shadcn/ui](https://ui.shadcn.com)
 - Icons from [Lucide](https://lucide.dev)
 
 ---
 
-Made with ❤️ for Zimbabwe football fans
+<p align="center">
+  Made with ❤️ for Zimbabwe football fans by <a href="https://www.tendaigumunyu.co.za">Tendai Gumunyu</a>
+</p>
+
