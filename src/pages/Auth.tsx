@@ -3,14 +3,21 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Navbar } from '@/components/layout/Navbar';
-import { Eye, EyeOff, Mail, Lock, User, Trophy, ArrowRight, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Trophy, ArrowRight, Sparkles, Shield, Target, Users, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { z } from 'zod';
+import { cn } from '@/lib/utils';
 
 const emailSchema = z.string().email('Please enter a valid email address');
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters');
+
+const features = [
+  { icon: Trophy, title: 'Compete & Win', desc: 'Join leagues and climb the ranks' },
+  { icon: Target, title: 'Real ZPSL Stats', desc: 'Live data from every match' },
+  { icon: Users, title: 'Build Your Squad', desc: 'Pick from 300+ players' },
+  { icon: Zap, title: 'Live Updates', desc: 'Real-time point scoring' },
+];
 
 export const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -121,189 +128,285 @@ export const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-subtle">
-      <Navbar />
-      
-      <main className="flex-1 flex items-center justify-center p-3 sm:p-4 md:p-6 relative overflow-hidden">
-        {/* Decorative background elements - reduced on mobile */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 sm:-top-40 -right-20 sm:-right-40 w-48 sm:w-80 h-48 sm:h-80 bg-primary/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute -bottom-20 sm:-bottom-40 -left-20 sm:-left-40 w-56 sm:w-96 h-56 sm:h-96 bg-accent/5 rounded-full blur-2xl sm:blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-gradient-radial opacity-50" />
+    <div className="min-h-screen flex bg-background">
+      {/* Left Panel - Branding & Features (Hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden bg-primary">
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0">
+          {/* Pitch lines pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[3px] border-white rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[150px] border-[3px] border-white border-t-0" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] h-[150px] border-[3px] border-white border-b-0" />
+          </div>
+          
+          {/* Floating elements */}
+          <div className="absolute top-20 left-20 w-24 h-24 bg-accent/20 rounded-full blur-2xl animate-float" />
+          <div className="absolute bottom-32 right-20 w-32 h-32 bg-white/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-accent/30 rounded-full blur-xl animate-pulse-soft" />
         </div>
 
-        <div className="w-full max-w-md animate-fade-in relative z-10">
-          <div className="bg-card/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-xl border border-border/50 p-5 sm:p-6 md:p-8">
-            {/* Header */}
-            <div className="text-center mb-5 sm:mb-6 md:mb-8">
-              <Link to="/" className="inline-flex items-center gap-3 mb-4 sm:mb-5 group">
-                <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/30 transition-shadow">
-                  <span className="text-2xl sm:text-3xl font-heading font-black text-primary-foreground">Z</span>
-                </div>
-              </Link>
-              <h1 className="font-heading font-bold text-xl sm:text-2xl md:text-3xl mb-1.5 sm:mb-2 text-foreground">
-                {isLogin ? 'Welcome Back' : 'Join the Game'}
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-between p-10 xl:p-16 w-full">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+              <span className="text-3xl font-heading font-black text-white">Z</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-heading font-bold text-xl text-white">ZPSL Fantasy</span>
+              <span className="text-sm text-white/60">Zimbabwe Premier League</span>
+            </div>
+          </Link>
+
+          {/* Main Content */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 border border-accent/30">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-accent">Season 2025/26 Now Live</span>
+              </div>
+              <h1 className="font-heading font-black text-4xl xl:text-5xl text-white leading-tight">
+                Build Your Dream Team.<br />
+                <span className="text-accent">Dominate the League.</span>
               </h1>
-              <p className="text-muted-foreground text-sm sm:text-base">
-                {isLogin ? 'Sign in to manage your fantasy team' : 'Create your account and start competing'}
+              <p className="text-lg text-white/70 max-w-md">
+                Join thousands of managers competing in Zimbabwe's premier fantasy football experience.
               </p>
             </div>
 
+            {/* Feature Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {features.map((feature, idx) => (
+                <div 
+                  key={feature.title}
+                  className="group p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center mb-3 group-hover:bg-accent/30 transition-colors">
+                    <feature.icon className="w-5 h-5 text-accent" />
+                  </div>
+                  <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
+                  <p className="text-sm text-white/60">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="flex items-center gap-8">
+            <div>
+              <p className="text-3xl font-heading font-bold text-white">50K+</p>
+              <p className="text-sm text-white/60">Active Managers</p>
+            </div>
+            <div className="w-px h-12 bg-white/20" />
+            <div>
+              <p className="text-3xl font-heading font-bold text-white">18</p>
+              <p className="text-sm text-white/60">ZPSL Teams</p>
+            </div>
+            <div className="w-px h-12 bg-white/20" />
+            <div>
+              <p className="text-3xl font-heading font-bold text-white">300+</p>
+              <p className="text-sm text-white/60">Players</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Panel - Auth Form */}
+      <div className="flex-1 flex flex-col">
+        {/* Mobile Header */}
+        <div className="lg:hidden p-4 border-b border-border">
+          <Link to="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+              <span className="text-xl font-heading font-black text-primary-foreground">Z</span>
+            </div>
+            <span className="font-heading font-bold text-lg text-foreground">ZPSL Fantasy</span>
+          </Link>
+        </div>
+
+        <div className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
+          <div className="w-full max-w-md animate-fade-in">
+            {/* Form Header */}
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-6">
+                <Shield className="w-8 h-8 text-primary" />
+              </div>
+              <h1 className="font-heading font-bold text-2xl sm:text-3xl mb-2 text-foreground">
+                {isLogin ? 'Welcome Back' : 'Create Account'}
+              </h1>
+              <p className="text-muted-foreground">
+                {isLogin ? 'Sign in to continue to your dashboard' : 'Start your fantasy football journey'}
+              </p>
+            </div>
+
+            {/* Toggle Buttons */}
+            <div className="flex p-1 mb-6 bg-muted rounded-xl">
+              <button
+                type="button"
+                onClick={() => { setIsLogin(true); setErrors({}); }}
+                className={cn(
+                  "flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200",
+                  isLogin 
+                    ? "bg-background text-foreground shadow-sm" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                onClick={() => { setIsLogin(false); setErrors({}); }}
+                className={cn(
+                  "flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-200",
+                  !isLogin 
+                    ? "bg-background text-foreground shadow-sm" 
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Sign Up
+              </button>
+            </div>
+
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
-                <>
-                  <div className="space-y-1.5 sm:space-y-2">
-                    <Label htmlFor="username" className="text-xs sm:text-sm font-medium">Username (optional)</Label>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="username" className="text-sm font-medium">Username</Label>
                     <div className="relative group">
-                      <User className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                       <Input
                         id="username"
                         type="text"
-                        placeholder="Choose a username"
+                        placeholder="johndoe"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base"
+                        className="pl-10 h-11 rounded-xl border-border bg-background focus:border-primary transition-colors"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-1.5 sm:space-y-2">
-                    <Label htmlFor="teamName" className="text-xs sm:text-sm font-medium">Team Name</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="teamName" className="text-sm font-medium">Team Name</Label>
                     <div className="relative group">
-                      <Trophy className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                      <Trophy className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                       <Input
                         id="teamName"
                         type="text"
-                        placeholder="My Fantasy Team"
+                        placeholder="FC Champions"
                         value={teamName}
                         onChange={(e) => setTeamName(e.target.value)}
-                        className="pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base"
+                        className="pl-10 h-11 rounded-xl border-border bg-background focus:border-primary transition-colors"
                       />
                     </div>
                   </div>
-                </>
+                </div>
               )}
 
-              <div className="space-y-1.5 sm:space-y-2">
-                <Label htmlFor="email" className="text-xs sm:text-sm font-medium">Email</Label>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
                 <div className="relative group">
-                  <Mail className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
                     id="email"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
                       setErrors({ ...errors, email: undefined });
                     }}
-                    className={`pl-9 sm:pl-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base ${errors.email ? 'border-destructive focus:border-destructive' : ''}`}
+                    className={cn(
+                      "pl-10 h-11 rounded-xl border-border bg-background focus:border-primary transition-colors",
+                      errors.email && "border-destructive focus:border-destructive"
+                    )}
                     required
                   />
                 </div>
-                {errors.email && <p className="text-xs sm:text-sm text-destructive">{errors.email}</p>}
+                {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
               </div>
 
-              <div className="space-y-1.5 sm:space-y-2">
+              <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-xs sm:text-sm font-medium">Password</Label>
+                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
                   {isLogin && (
-                    <Link to="/forgot-password" className="text-xs sm:text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-                      Forgot?
+                    <Link to="/forgot-password" className="text-xs text-primary hover:text-primary/80 font-medium transition-colors">
+                      Forgot password?
                     </Link>
                   )}
                 </div>
                 <div className="relative group">
-                  <Lock className="absolute left-3 sm:left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder={isLogin ? 'Enter your password' : 'Create a password'}
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
                       setErrors({ ...errors, password: undefined });
                     }}
-                    className={`pl-9 sm:pl-11 pr-10 sm:pr-11 h-11 sm:h-12 rounded-lg sm:rounded-xl border-border/50 bg-background/50 focus:bg-background transition-colors text-sm sm:text-base ${errors.password ? 'border-destructive focus:border-destructive' : ''}`}
+                    className={cn(
+                      "pl-10 pr-10 h-11 rounded-xl border-border bg-background focus:border-primary transition-colors",
+                      errors.password && "border-destructive focus:border-destructive"
+                    )}
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 sm:right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                {errors.password && <p className="text-xs sm:text-sm text-destructive">{errors.password}</p>}
+                {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
               </div>
 
               <Button 
                 type="submit" 
-                className="w-full h-11 sm:h-12 text-sm sm:text-base font-bold rounded-lg sm:rounded-xl mt-4 sm:mt-6 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0" 
+                className="w-full h-12 text-base font-bold rounded-xl mt-6 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5 active:translate-y-0" 
                 size="lg" 
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                    <span className="text-sm sm:text-base">{isLogin ? 'Signing in...' : 'Creating...'}</span>
+                    <span className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                    {isLogin ? 'Signing in...' : 'Creating account...'}
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
                     {isLogin ? 'Sign In' : 'Create Account'}
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <ArrowRight className="w-5 h-5" />
                   </span>
                 )}
               </Button>
             </form>
 
-            {/* Divider */}
-            <div className="relative my-4 sm:my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border/50" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-3 text-muted-foreground">or</span>
+            {/* Mobile Features */}
+            <div className="lg:hidden mt-8 pt-6 border-t border-border">
+              <div className="grid grid-cols-2 gap-3">
+                {features.slice(0, 2).map((feature) => (
+                  <div key={feature.title} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <feature.icon className="w-4 h-4 text-primary" />
+                    <span>{feature.title}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Toggle */}
-            <p className="text-center text-muted-foreground text-sm sm:text-base">
-              {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsLogin(!isLogin);
-                  setErrors({});
-                }}
-                className="text-primary font-semibold hover:text-primary/80 transition-colors"
-              >
-                {isLogin ? 'Create one' : 'Sign in'}
-              </button>
+            {/* Footer */}
+            <p className="text-center text-xs text-muted-foreground mt-6">
+              By continuing, you agree to our{' '}
+              <Link to="/terms" className="underline hover:text-foreground transition-colors">Terms</Link>
+              {' '}and{' '}
+              <Link to="/privacy" className="underline hover:text-foreground transition-colors">Privacy Policy</Link>
             </p>
           </div>
-
-          {/* Feature badges */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 sm:mt-6 px-2">
-            {['Free to play', 'Real ZPSL data', 'Win prizes'].map((feature) => (
-              <div key={feature} className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-card/60 backdrop-blur border border-border/30 text-[10px] sm:text-xs font-medium text-muted-foreground">
-                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-accent" />
-                {feature}
-              </div>
-            ))}
-          </div>
-
-          {/* Footer note */}
-          <p className="text-center text-[10px] sm:text-xs text-muted-foreground mt-4 sm:mt-6 px-4">
-            By continuing, you agree to our{' '}
-            <Link to="/terms" className="underline hover:text-foreground transition-colors">Terms</Link>
-            {' '}and{' '}
-            <Link to="/privacy" className="underline hover:text-foreground transition-colors">Privacy</Link>
-          </p>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
