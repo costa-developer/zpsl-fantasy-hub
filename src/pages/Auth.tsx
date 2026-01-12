@@ -12,6 +12,20 @@ import { cn } from '@/lib/utils';
 const emailSchema = z.string().email('Please enter a valid email address');
 const passwordSchema = z.string().min(6, 'Password must be at least 6 characters');
 
+const getPasswordStrength = (password: string): { score: number; label: string; color: string } => {
+  let score = 0;
+  
+  if (password.length >= 6) score++;
+  if (password.length >= 10) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  if (score <= 1) return { score: 1, label: 'Weak', color: 'bg-destructive' };
+  if (score <= 3) return { score: 2, label: 'Medium', color: 'bg-accent' };
+  return { score: 3, label: 'Strong', color: 'bg-primary' };
+};
+
 const features = [
   { icon: Trophy, title: 'Compete & Win', desc: 'Join leagues and climb the ranks' },
   { icon: Target, title: 'Real ZPSL Stats', desc: 'Live data from every match' },
@@ -363,6 +377,39 @@ export const Auth = () => {
                   </button>
                 </div>
                 {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
+                
+                {/* Password Strength Indicator */}
+                {!isLogin && password.length > 0 && (
+                  <div className="space-y-2 animate-fade-in">
+                    <div className="flex gap-1.5">
+                      {[1, 2, 3].map((level) => {
+                        const strength = getPasswordStrength(password);
+                        return (
+                          <div
+                            key={level}
+                            className={cn(
+                              "h-1.5 flex-1 rounded-full transition-all duration-300",
+                              level <= strength.score ? strength.color : "bg-muted"
+                            )}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">
+                        Password strength: <span className={cn(
+                          "font-medium",
+                          getPasswordStrength(password).score === 1 && "text-destructive",
+                          getPasswordStrength(password).score === 2 && "text-accent",
+                          getPasswordStrength(password).score === 3 && "text-primary"
+                        )}>{getPasswordStrength(password).label}</span>
+                      </span>
+                      <span className="text-muted-foreground">
+                        {password.length >= 6 ? '✓' : '○'} 6+ chars
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <Button 
