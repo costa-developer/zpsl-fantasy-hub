@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Trophy, Users, Calendar, BarChart3, Settings, LogOut, User, ArrowRightLeft, Scale } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { PlayerSearch } from '@/components/fantasy/PlayerSearch';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -71,6 +72,7 @@ export const Navbar = () => {
 
         {/* Auth Buttons / User Menu */}
         <div className="hidden md:flex items-center gap-3">
+          {isAuthenticated && <PlayerSearch trigger="button" />}
           <ThemeToggle />
           {isAuthenticated ? (
             <div className="flex items-center gap-2">
@@ -105,6 +107,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="flex md:hidden items-center gap-2">
+          {isAuthenticated && <PlayerSearch trigger="icon" />}
           <ThemeToggle />
           <Button
             variant="ghost"
