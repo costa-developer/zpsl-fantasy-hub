@@ -71,7 +71,7 @@ export const Landing = () => {
                     style={{ animationDelay: '0.2s' }}
                   >
                     ZPSL Fantasy
-                    <span className="block text-accent drop-shadow-lg">Football</span>
+                    <span className="block text-white/90 drop-shadow-lg">Football</span>
                   </h1>
 
                   <p 
@@ -137,13 +137,13 @@ export const Landing = () => {
                   {stats.map((stat, index) => (
                     <div 
                       key={stat.label}
-                      className="group relative bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 text-center border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all duration-300 active:scale-[0.98] lg:hover:-translate-y-2 overflow-hidden"
+                      className="group relative bg-white/15 backdrop-blur-md rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 text-center border border-white/15 hover:bg-white/20 hover:border-white/25 transition-all duration-300 active:scale-[0.98] lg:hover:-translate-y-2 overflow-hidden"
                     >
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:block" />
                       
-                      <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-accent/80 mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform" />
-                      <p className="font-heading font-black text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-accent mb-0.5 sm:mb-1">{stat.value}</p>
+                      <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8 text-white/80 mx-auto mb-2 sm:mb-3 group-hover:scale-110 transition-transform" />
+                      <p className="font-heading font-black text-xl sm:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white mb-0.5 sm:mb-1">{stat.value}</p>
                       <p className="text-white/70 text-xs sm:text-sm lg:text-base font-medium">{stat.label}</p>
                     </div>
                   ))}
